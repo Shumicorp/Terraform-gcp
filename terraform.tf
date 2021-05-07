@@ -33,13 +33,13 @@ module "instance-template" {
   depends_on = [module.vpc_network, module.service-account] 
 }
 
-#module "instance-groupe" {
-#  source     = "./modules/ig"
-#  template   = module.instance-template.id
-#  min-i      = 2
-#  max-i      = 4
-#  depends_on = [module.instance-template] 
-#}
+module "instance-groupe" {
+  source     = "./modules/ig"
+  template   = module.instance-template.id
+  min-i      = 2
+  max-i      = 4
+  depends_on = [module.instance-template] 
+}
 
 #module "load-balancer" {
 #  source     = "./modules/lb"
@@ -48,5 +48,4 @@ module "instance-template" {
 #  net        = module.vpc_network.id
 #  depends_on = [module.instance-groupe] 
 #}
-
 
