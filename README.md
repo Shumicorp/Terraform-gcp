@@ -1,7 +1,7 @@
 # Terraform-gcp
 # My file to create infrastructure for wordpress app
 
-create: 
+# Create: 
 # VPC network - module "vpc_network":
   2 - subnetwork   
   cloud-nat   
