@@ -6,6 +6,6 @@ sudo apt update
 sudo apt install gcsfuse
 echo "user_allow_other" >> /etc/fuse.conf
 sudo mkdir html
-sudo gcsfuse --implicit-dirs -o allow_other wordpress-buck-storage /html
+sudo gcsfuse --implicit-dirs -o allow_other wordpress-storage-case1 /html
 sudo rm -R /var/www/html
 sudo ln -s /html/ /var/www/

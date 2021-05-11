@@ -1,6 +1,6 @@
 provider "google" {
   credentials = file("credential.json")
-  project     = "my-wordpress-312314"
+  project     = "my-test-project-313013"
   region      = "europe-west1"
   zone        = "europe-west1-c"
 }
@@ -30,7 +30,7 @@ module "instance-template" {
   acc        = module.service-account.email
   net        = module.vpc_network.id
   sub-net    = module.vpc_network.sub-id
-  depends_on = [module.vpc_network, module.service-account] 
+  depends_on = [module.vpc_network, module.service-account, module.storage-bucket] 
 }
 
 module "instance-groupe" {
@@ -41,11 +41,10 @@ module "instance-groupe" {
   depends_on = [module.instance-template] 
 }
 
-#module "load-balancer" {
-#  source     = "./modules/lb"
-#  ig-id      = module.instance-groupe.ig-id
-#  sub-net    = module.vpc_network.sub-id
-#  net        = module.vpc_network.id
-#  depends_on = [module.instance-groupe] 
-#}
-
+module "load-balancer" {
+ source     = "./modules/lb"
+  ig-id      = module.instance-groupe.ig-id
+  check      = module.instance-groupe.wp-health
+  depends_on = [module.instance-groupe] 
+  
+}
