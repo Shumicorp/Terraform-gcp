@@ -24,7 +24,7 @@
     gcsfuse   
     add service account for access to Cloud Storage   
     mount Cloud Storage    
-    PS. is start-script name-storage should be like the name Storage-bucket  
+    PS. in start-script name-storage should be like the name Storage-bucket  
     
 # Compute Engine - Instance groups - module "instance-groupe"
   instance group   

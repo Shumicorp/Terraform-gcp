@@ -32,7 +32,7 @@ module "instance-template" {
   sub-net    = module.vpc_network.sub-id
   depends_on = [module.vpc_network, module.service-account, module.storage-bucket] 
 }
-
+ 
 module "instance-groupe" {
   source     = "./modules/ig"
   template   = module.instance-template.id
