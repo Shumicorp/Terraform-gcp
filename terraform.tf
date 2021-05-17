@@ -1,6 +1,6 @@
 provider "google" {
   credentials = file("credential.json")
-  project     = "my-test-project-313013"
+  project     = "testwp-softserve"
   region      = "europe-west1"
   zone        = "europe-west1-c"
 }
@@ -42,9 +42,14 @@ module "instance-groupe" {
 }
 
 module "load-balancer" {
- source     = "./modules/lb"
+ source      = "./modules/lb"
   ig-id      = module.instance-groupe.ig-id
   check      = module.instance-groupe.wp-health
   depends_on = [module.instance-groupe] 
-  
+}
+
+module "dns" {
+  source = "./modules/dns"
+  ip     = module.load-balancer.front-ip
+  depends_on = [module.load-balancer]
 }

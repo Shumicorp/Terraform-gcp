@@ -10,7 +10,7 @@ variable "acc" {
 
 resource "google_compute_instance_template" "wp-template" {
   name           = "wp-template"
-  machine_type   = "e2-small"
+  machine_type   = "e2-medium"
   can_ip_forward = false
   
   scheduling {

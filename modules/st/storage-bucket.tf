@@ -2,7 +2,7 @@ variable "acc" {
   type = string
 }
 resource "google_storage_bucket" "my-buck" {
-  name          = "wordpress-storage-case1"
+  name          = "wordpress-storage-8"
   location      = "EU"
   uniform_bucket_level_access = true
   force_destroy = true
