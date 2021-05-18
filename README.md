@@ -1,11 +1,11 @@
 # Terraform-gcp
 # My file to create infrastructure for wordpress app
-necessary api access:
-  Identity and Access Management (IAM) API
-  Cloud Resource Manager API
-  Service Networking API
-  Cloud SQL Admin API
-  Cloud DNS API
+necessary api access:   
+  Identity and Access Management (IAM) API   
+  Cloud Resource Manager API   
+  Service Networking API   
+  Cloud SQL Admin API   
+  Cloud DNS API   
 # Create: 
 # VPC network - module "vpc_network":
   2 - subnetwork   
