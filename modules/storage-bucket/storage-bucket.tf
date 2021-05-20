@@ -1,6 +1,3 @@
-variable "acc" {
-  type = string
-}
 resource "google_storage_bucket" "my-buck" {
   name          = "wordpress-storage-8"
   location      = "EU"

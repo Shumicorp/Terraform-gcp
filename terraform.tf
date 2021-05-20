@@ -1,32 +1,30 @@
 provider "google" {
-  credentials = file("credential.json")
-  project     = "testwp-softserve"
   region      = "europe-west1"
   zone        = "europe-west1-c"
 }
 
 module "vpc_network" {
-  source = "./modules/vpc"
+  source = "./modules/vpc-network"
 }
 
 module "db-mysql" {
-  source     = "./modules/db"
+  source     = "./modules/database"
   net        = module.vpc_network.id
   depends_on = [module.vpc_network]  
 }
 
 module "service-account" {
-  source = "./modules/sa"
+  source = "./modules/service-account"
 }
 
 module "storage-bucket" {
-  source     = "./modules/st"
+  source     = "./modules/storage-bucket"
   acc        = module.service-account.email
   depends_on = [module.service-account] 
 }
 
 module "instance-template" {
-  source     = "./modules/tm"
+  source     = "./modules/instance-template"
   acc        = module.service-account.email
   net        = module.vpc_network.id
   sub-net    = module.vpc_network.sub-id
@@ -34,7 +32,7 @@ module "instance-template" {
 }
  
 module "instance-groupe" {
-  source     = "./modules/ig"
+  source     = "./modules/instance-groupe"
   template   = module.instance-template.id
   min-i      = 2
   max-i      = 4
@@ -42,14 +40,14 @@ module "instance-groupe" {
 }
 
 module "load-balancer" {
- source      = "./modules/lb"
+ source      = "./modules/load-balancer"
   ig-id      = module.instance-groupe.ig-id
   check      = module.instance-groupe.wp-health
   depends_on = [module.instance-groupe] 
 }
 
 module "dns" {
-  source = "./modules/dns"
+  source = "./modules/cloud-dns"
   ip     = module.load-balancer.front-ip
   depends_on = [module.load-balancer]
 }

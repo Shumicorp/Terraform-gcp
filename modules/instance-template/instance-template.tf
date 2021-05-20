@@ -1,13 +1,3 @@
-variable "net" {
-  type = string
-}
-variable "sub-net" {
-  type = string
-}
-variable "acc" {
-  type = string
-}
-
 resource "google_compute_instance_template" "wp-template" {
   name           = "wp-template"
   machine_type   = "e2-medium"
@@ -39,8 +29,6 @@ resource "google_compute_instance_template" "wp-template" {
     enable_vtpm = true
     enable_integrity_monitoring = true
   }
-  metadata_startup_script = file("./modules/tm/start-script")
+  metadata_startup_script = file("./modules/instance-template/start-script")
 }
-output "id" {
-  value = google_compute_instance_template.wp-template.id
-}
+

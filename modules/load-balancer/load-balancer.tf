@@ -1,10 +1,3 @@
-variable "ig-id" {
-  type = string
-}
-variable "check" {
-  type = list
-}
-
 resource "google_compute_global_address" "wordpress-front" {
   name = "wordpress-front"
 }
@@ -45,6 +38,3 @@ resource "google_compute_global_forwarding_rule" "load-balancer-https" {
   target                = google_compute_target_https_proxy.https-proxy.id
 }
 
-output "front-ip" { # output id network outside for ather module
-  value = [google_compute_global_address.wordpress-front.address]
-}

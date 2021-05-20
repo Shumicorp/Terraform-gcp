@@ -1,7 +1,3 @@
-variable "ip" {
-  type = list
-}
-
 resource "google_dns_managed_zone" "parent-zone" {
   name        = "my-zone"
   dns_name    = "mrusn.pp.ua."
