@@ -1,8 +1,3 @@
-provider "google" {
-  region      = "europe-west1"
-  zone        = "europe-west1-c"
-}
-
 module "vpc_network" {
   source = "./modules/vpc-network"
 }
