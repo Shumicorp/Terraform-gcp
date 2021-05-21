@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "my-buck" {
-  name          = "wordpress-storage-888"
+  name          = var.name-backet
   location      = "EU"
   uniform_bucket_level_access = true
   force_destroy = true

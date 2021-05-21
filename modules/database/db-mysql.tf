@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "mysql" {
-  name                = "wordpress-888" # name of database
+  name                = var.name-db
   region              = "europe-west1"
   database_version    = "MYSQL_5_7"
   deletion_protection = "false"
