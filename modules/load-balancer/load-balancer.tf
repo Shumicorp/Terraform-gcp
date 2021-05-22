@@ -38,3 +38,15 @@ resource "google_compute_global_forwarding_rule" "load-balancer-https" {
   target                = google_compute_target_https_proxy.https-proxy.id
 }
 
+resource "google_compute_target_http_proxy" "http-proxy" { 
+  name        = "target-http-proxy"
+  description = "a description"
+  url_map     = google_compute_url_map.default.id
+}
+
+resource "google_compute_global_forwarding_rule" "http-role" {
+  name       = "http-rule"
+  ip_address = google_compute_global_address.wordpress-front.address
+  target     = google_compute_target_http_proxy.http-proxy.id
+  port_range = "80"
+}
