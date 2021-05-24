@@ -9,3 +9,5 @@ sudo mkdir html
 sudo gcsfuse --implicit-dirs -o allow_other --dir-mode 777 wordpress-storage-888 /html
 sudo rm -R /var/www/html
 sudo ln -s /html/ /var/www/
+curl -sSO https://dl.google.com/cloudagents/add-logging-agent-repo.sh && sudo bash add-logging-agent-repo.sh --also-install && sudo service google-fluentd start
+curl -sSO https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh && sudo bash add-monitoring-agent-repo.sh --also-install && sudo service stackdriver-agent start
