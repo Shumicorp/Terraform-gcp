@@ -1,12 +1,15 @@
 module "vpc_network" {
-  source          = "./modules/vpc-network"
-  name            = local.vpc_name
-  subnet1-name    = local.subnet1-name
-  subnet1-ip_cidr = local.subnet1-ip_cidr
-  subnet1-region  = local.subnet1-region
-  subnet2-name    = local.subnet2-name
-  subnet2-ip_cidr = local.subnet2-ip_cidr
-  subnet2-region  = local.subnet2-region
+  source                 = "./modules/vpc-network"
+  name                   = local.vpc_name
+  subnet1-name           = local.subnet1-name
+  subnet1-ip_cidr        = local.subnet1-ip_cidr
+  subnet1-region         = local.subnet1-region
+  subnet2-name           = local.subnet2-name
+  subnet2-ip_cidr        = local.subnet2-ip_cidr
+  subnet2-region         = local.subnet2-region
+  firewall-name          = local.firewall-name
+  firewall-source_ranges = local.firewall-source_ranges
+  firewall-allow-ports   = local.firewall-allow-ports
 }
 
 module "service-account" {
@@ -16,7 +19,7 @@ module "service-account" {
   project = local.project
 }
 
-
+/*
 module "db-mysql" {
   source           = "./modules/database"
   vpc-net          = module.vpc_network.id
@@ -83,3 +86,4 @@ module "dns" {
   depends_on = [module.load-balancer]
 }
 
+*/

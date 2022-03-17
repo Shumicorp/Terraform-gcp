@@ -58,15 +58,16 @@ resource "google_compute_router_nat" "nat" {
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "test-firewall"
+  name    = var.firewall-name
   network = google_compute_network.vpc_network.name
   allow {
     protocol = "icmp"
   }
   allow {
     protocol = "tcp"
-    ports    = ["80", "8080", "443", "22"]
+    ports    = var.firewall-allow-ports
   }
+  source_ranges = var.firewall-source_ranges
   depends_on    = [google_compute_network.vpc_network]
 }
 

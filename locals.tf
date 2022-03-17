@@ -6,13 +6,16 @@ locals {
   sa-name = "test-2"
   sa-role = "roles/editor"
   # for module VPC-Network
-  vpc_name        = "my-vpc"
-  subnet1-name    = "subnet-1"
-  subnet1-ip_cidr = "10.0.10.0/24"
-  subnet1-region  = "europe-west1"
-  subnet2-name    = "subnet-2-with-privat-access"
-  subnet2-ip_cidr = "10.0.20.0/24"
-  subnet2-region  = "europe-west2"
+  vpc_name               = "my-vpc2"
+  subnet1-name           = "subnet-1"
+  subnet1-ip_cidr        = "10.0.10.0/24"
+  subnet1-region         = "europe-west1"
+  subnet2-name           = "subnet-2-with-privat-access"
+  subnet2-ip_cidr        = "10.0.20.0/24"
+  subnet2-region         = "europe-west2"
+  firewall-name          = "test-firewall"
+  firewall-source_ranges = ["0.0.0.0/0"]
+  firewall-allow-ports   = ["80", "8080", "443", "22"]
   # for DataBase
   db-service-name  = "namedatabase-service"
   db-instance-type = "db-f1-micro"
