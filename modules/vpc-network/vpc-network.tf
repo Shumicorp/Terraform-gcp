@@ -1,21 +1,21 @@
 resource "google_compute_network" "vpc_network" {
-  name = "vpc-networks"
+  name = var.name
   auto_create_subnetworks = "false"
 }
 
 resource "google_compute_subnetwork" "public-subnet" {
-  name = "zone1-public-subnet"
-  ip_cidr_range = "10.0.10.0/24"
-  region = "europe-west1"
+  name = var.subnet1-name
+  ip_cidr_range = var.subnet1-ip_cidr
+  region = var.subnet1-region
   network = google_compute_network.vpc_network.name
   depends_on    = [google_compute_network.vpc_network]
 }
 
 resource "google_compute_subnetwork" "private-subnet" {
-  name          = "zone1-private-subnet"
-  ip_cidr_range = "10.0.20.0/24"
+  name          = var.subnet2-name
+  ip_cidr_range = var.subnet2-ip_cidr
   network       = google_compute_network.vpc_network.name
-  region        = "europe-west1"
+  region        = var.subnet2-region
   private_ip_google_access = "true"
   depends_on    = [google_compute_network.vpc_network]
 }

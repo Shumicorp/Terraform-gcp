@@ -1,52 +1,52 @@
-resource "google_compute_global_address" "wordpress-front" {
-  name = "wordpress-front"
+resource "google_compute_global_address" "front" {
+  name = "${var.lb-name}-front"
 }
 
-resource "google_compute_backend_service" "wordpress-backend" {
+resource "google_compute_backend_service" "backend" {
   backend {
-    group           = var.ig-id
+    group           = var.mig-id
     balancing_mode  = "UTILIZATION"
     capacity_scaler = 1.0
   }
-  name        = "wordpress-backend"
+  name        = "${var.lb-name}-backend"
   health_checks = var.check
   
 }
 
 resource "google_compute_url_map" "default" {
-  name            = "wordpress-map"
-  default_service = google_compute_backend_service.wordpress-backend.id
+  name            = "${var.lb-name}-map"
+  default_service = google_compute_backend_service.backend.id
 }
 
 resource "google_compute_target_https_proxy" "https-proxy" {
-  name             = "test-proxy"
+  name             = "${var.lb-name}-proxy"
   url_map          = google_compute_url_map.default.id
   ssl_certificates = [google_compute_managed_ssl_certificate.default.id]
 }
 resource "google_compute_managed_ssl_certificate" "default" {
-  name = "mrusn-ssl-terra"
+  name = var.ssl-cert-name
 
   managed {
-    domains = ["mrusn.pp.ua."]
+    domains = var.ssl-domains
   }
 }
 
 resource "google_compute_global_forwarding_rule" "load-balancer-https" {
   name                  = "https-role"
-  ip_address            = google_compute_global_address.wordpress-front.address
+  ip_address            = google_compute_global_address.front.address
   port_range            = "443"
   target                = google_compute_target_https_proxy.https-proxy.id
 }
 
 resource "google_compute_target_http_proxy" "http-proxy" { 
-  name        = "target-http-proxy"
+  name        = "${var.lb-name}-target-http-proxy"
   description = "a description"
   url_map     = google_compute_url_map.default.id
 }
 
 resource "google_compute_global_forwarding_rule" "http-role" {
-  name       = "http-rule"
-  ip_address = google_compute_global_address.wordpress-front.address
+  name       = "${var.lb-name}-http-rule"
+  ip_address = google_compute_global_address.front.address
   target     = google_compute_target_http_proxy.http-proxy.id
   port_range = "80"
 }

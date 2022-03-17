@@ -1,6 +1,6 @@
 resource "google_compute_instance_template" "wp-template" {
-  name           = "wp-template"
-  machine_type   = "e2-medium"
+  name           = var.tamplate-name
+  machine_type   = var.machine_type
   can_ip_forward = false
   
   scheduling {
@@ -9,10 +9,10 @@ resource "google_compute_instance_template" "wp-template" {
   }
 
   disk {
-    source_image      = "ubuntu-1804-bionic-v20210415"
+    source_image      = var.source_image
     auto_delete       = true
     boot              = true
-    disk_size_gb      = 10
+    disk_size_gb      = var.disk_size_gb
   }
 
   network_interface {
@@ -22,7 +22,7 @@ resource "google_compute_instance_template" "wp-template" {
   }
   
   service_account {
-    email  = var.acc
+    email  = var.sa
     scopes = ["cloud-platform"]
   }
   shielded_instance_config {

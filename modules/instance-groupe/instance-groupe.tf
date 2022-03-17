@@ -1,12 +1,8 @@
-resource "google_compute_region_instance_group_manager" "wordpress-ig" {
-  name = "wordpress-groupe"
-  base_instance_name = "wordpress-groupe"
-  region = "europe-west1"
-  distribution_policy_zones = [
-    "europe-west1-d",
-    "europe-west1-b",
-    "europe-west1-c"]
-
+resource "google_compute_region_instance_group_manager" "mig" {
+  name = var.mig-name
+  base_instance_name = "${var.mig-name}-groupe"
+  region = var.mig-region
+  distribution_policy_zones = var.distribution_policy_zones
   version {
     instance_template = var.template
   }
@@ -16,34 +12,35 @@ resource "google_compute_region_instance_group_manager" "wordpress-ig" {
     port = 80
   }
   auto_healing_policies {
-    health_check = google_compute_health_check.wp-health-check.id
+    health_check = google_compute_health_check.health-check.id
     initial_delay_sec = 300
 
   }
 }
 
-resource "google_compute_region_autoscaler" "wordpress-autoscaler" {
-  name   = "wordpress-autoscaler"
-  region = "europe-west1"
-  target = google_compute_region_instance_group_manager.wordpress-ig.id
+resource "google_compute_region_autoscaler" "autoscaler" {
+  name   = var.autoscaler-name
+  region = var.autoscaler-region
+
+  target = google_compute_region_instance_group_manager.mig.id
   autoscaling_policy {
-    max_replicas    = var.max-i
-    min_replicas    = var.min-i
+    max_replicas    = var.autoscaler-max
+    min_replicas    = var.autoscaler-min
     cooldown_period = 80
     cpu_utilization { target = 1 }
   }
 }
 
 
-resource "google_compute_health_check" "wp-health-check" {
-  name                = "wordpres-health-check"
+resource "google_compute_health_check" "health-check" {
+  name                = var.health-check-name
   check_interval_sec  = 10
   timeout_sec         = 5
   healthy_threshold   = 2
   unhealthy_threshold = 4
 
   tcp_health_check {
-    port = "80"
+    port = "${var.health-check-port}"
   }
 }
 

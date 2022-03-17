@@ -1,10 +1,10 @@
 resource "google_service_account" "service-account" {
-  account_id   = "wordpress-account"
-  display_name = "Wordpress Account" 
+  account_id   = var.name
+  display_name = var.name
 }
  
 resource "google_project_iam_member" "project" {
-  project = "my-elk-wp-softserve"
-  role    = "roles/editor"
+  project = var.project
+  role    = var.roles
   member  = "serviceAccount:${google_service_account.service-account.email}"
 }
