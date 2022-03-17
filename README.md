@@ -1,4 +1,6 @@
 # Terraform-gcp
+All variables in the locals.tf file
+
 # My file to create infrastructure for wordpress app
 necessary api access:   
   Identity and Access Management (IAM) API   
