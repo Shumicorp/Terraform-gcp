@@ -19,7 +19,6 @@ module "service-account" {
   project = local.project
 }
 
-/*
 module "db-mysql" {
   source           = "./modules/database"
   vpc-net          = module.vpc_network.id
@@ -30,7 +29,6 @@ module "db-mysql" {
   db-instance-type = local.db-instance-type
   depends_on       = [module.vpc_network]
 }
-
 
 module "storage-bucket" {
   source      = "./modules/storage-bucket"
@@ -86,4 +84,3 @@ module "dns" {
   depends_on = [module.load-balancer]
 }
 
-*/
