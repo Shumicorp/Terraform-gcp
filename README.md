@@ -1,5 +1,5 @@
 # Terraform-gcp
-All variables in the locals.tf file
+Provider variables in the locals.tf file
 
 # My file to create infrastructure for wordpress app
 necessary api access:   
