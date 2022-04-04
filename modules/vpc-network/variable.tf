@@ -26,6 +26,9 @@ variable "firewall-source_ranges" {
 variable "firewall-name" {
     type = string
 }
+variable "firewall-allow-protocol" {
+    type = string
+}
 variable "firewall-allow-ports" {
     type = list
     default = []

@@ -64,7 +64,7 @@ resource "google_compute_firewall" "default" {
     protocol = "icmp"
   }
   allow {
-    protocol = "tcp"
+    protocol = var.firewall-allow-protocol
     ports    = var.firewall-allow-ports
   }
   source_ranges = var.firewall-source_ranges
